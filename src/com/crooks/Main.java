@@ -118,6 +118,14 @@ public class Main {
         return false;
     }
 
+    static boolean straightFlush(HashSet<Card> hand){
+        if (isFlush(hand) && straight(hand)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         HashSet<Card> deck = createDeck();
         HashSet<HashSet<Card>> hands = createHands(deck);
@@ -140,7 +148,11 @@ public class Main {
                 .collect(Collectors.toCollection(HashSet<HashSet<Card>>::new));
 
         HashSet<HashSet<Card>>straight = hands.stream()
-                .filter(Main::straight)                        // 2 Pair filter
+                .filter(Main::straight)                        // Straight filter
+                .collect(Collectors.toCollection(HashSet<HashSet<Card>>::new));
+
+        HashSet<HashSet<Card>>straightFlush = hands.stream()
+                .filter(Main::straightFlush)                        // Straight Flush filter
                 .collect(Collectors.toCollection(HashSet<HashSet<Card>>::new));
 
 
@@ -151,6 +163,7 @@ public class Main {
         System.out.println(" Total Three-of-a-Kinds: " + threeOfAKind.size());
         System.out.println(" Total Two-Pairs: " + twoPairs.size());
         System.out.println(" Total Straights: " + straight.size());
+        System.out.println(" Total Straights: " + straightFlush.size());
 
     } // end main method
 } // end main Class
