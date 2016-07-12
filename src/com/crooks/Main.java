@@ -1,7 +1,10 @@
 package com.crooks;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -52,18 +55,102 @@ public class Main {
         return suits.size() == 1;
     }
 
+    static boolean isSameRank(HashSet<Card> hand){
+        HashSet<Card.Rank> ranks = hand.stream()
+                .map (card -> card.rank)
+                .collect(Collectors.toCollection(HashSet<Card.Rank>::new));
+        return ranks.size() == 1;
+    }
+
+    static boolean isThreeofKind(HashSet<Card> hand){
+        ArrayList<Integer> ordinalarray = hand.stream()
+                .map (card -> card.rank.ordinal())
+                .collect(Collectors.toCollection(ArrayList<Integer>::new));
+
+        int [] freqList = new int[13];
+
+        for (Integer i: ordinalarray) {
+            freqList[i] = freqList[i]+ 1;
+        }
+
+        for (int i: freqList) {
+            if (i ==3){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static boolean twoPair(HashSet<Card> hand){
+        ArrayList<Integer> ordinalarray = hand.stream()
+                .map (card -> card.rank.ordinal())
+                .collect(Collectors.toCollection(ArrayList<Integer>::new));
+
+        int [] freqList = new int[13];
+        int pair = 0;
+
+        for (Integer i: ordinalarray) {
+            freqList[i] = freqList[i]+ 1;
+        }
+        for (int i: freqList) {
+            if (i ==2){
+                pair++;
+            }
+        }
+        if (pair==2){
+            return true;
+        }
+        return false;
+    }
+
+    static boolean straight(HashSet<Card> hand){
+        ArrayList<Integer> ordinalarray = hand.stream()
+                .map (card -> card.rank.ordinal())
+                .collect(Collectors.toCollection(ArrayList<Integer>::new));
+
+        ArrayList<Integer> sortedArray = ordinalarray.stream()
+                .sorted((x1, x2) -> Integer.compare(x1.intValue(),x2.intValue()))
+                .collect(Collectors.toCollection(ArrayList<Integer>::new));
+
+        if (sortedArray.get(0) + 1== sortedArray.get(1) && sortedArray.get(0) +2 ==sortedArray.get(2) && sortedArray.get(0) + 3 ==sortedArray.get(3)){
+            return true;
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         HashSet<Card> deck = createDeck();
         HashSet<HashSet<Card>> hands = createHands(deck);
-        HashSet<HashSet<Card>>flushes = hands.stream()   //Create a stream to filter out anything that isn't a flush
+
+        HashSet<HashSet<Card>>flushes = hands.stream()          //Create a stream to filter out anything that isn't a flush
                 .filter(Main::isFlush)
                 .collect(Collectors.toCollection(HashSet<HashSet<Card>>::new));
 
-        System.out.println(hands.size());
-        System.out.println(flushes.size());
+
+        HashSet<HashSet<Card>>fourOfAKind = hands.stream()
+               .filter(Main::isSameRank)                        // 4 of a Kind filter
+               .collect(Collectors.toCollection(HashSet<HashSet<Card>>::new));
+
+        HashSet<HashSet<Card>>threeOfAKind = hands.stream()
+                .filter(Main::isThreeofKind)                        // 3 of a Kind filter
+                .collect(Collectors.toCollection(HashSet<HashSet<Card>>::new));
+
+        HashSet<HashSet<Card>>twoPairs = hands.stream()
+                .filter(Main::twoPair)                        // 2 Pair filter
+                .collect(Collectors.toCollection(HashSet<HashSet<Card>>::new));
+
+        HashSet<HashSet<Card>>straight = hands.stream()
+                .filter(Main::straight)                        // 2 Pair filter
+                .collect(Collectors.toCollection(HashSet<HashSet<Card>>::new));
 
 
+
+        System.out.println(" Total Hands: " + hands.size());
+        System.out.println(" Total Flushes: " + flushes.size());
+        System.out.println(" Total Four-of-a-Kinds: " + fourOfAKind.size());
+        System.out.println(" Total Three-of-a-Kinds: " + threeOfAKind.size());
+        System.out.println(" Total Two-Pairs: " + twoPairs.size());
+        System.out.println(" Total Straights: " + straight.size());
 
     } // end main method
 } // end main Class
