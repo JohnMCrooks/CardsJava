@@ -25,13 +25,11 @@ public class MainTest {
         tempHash.add(card3);
 
         boolean testIsTrue = Main.isFlush(tempHash);
-        System.out.println(testIsTrue);
         Assert.assertTrue(testIsTrue);
 
         tempHash.remove(card1);
         tempHash.add(new Card(Card.Suit.CLUBS, Card.Rank.EIGHT));
         boolean testIsfalse = Main.isFlush(tempHash);
-        System.out.println(testIsfalse);
         Assert.assertFalse(testIsfalse);
     }
 
@@ -49,15 +47,34 @@ public class MainTest {
 
         boolean testIsTrue = Main.isSameRank(tempHash);
         Assert.assertTrue(testIsTrue);
-        System.out.println( testIsTrue);
+
         tempHash.remove(card1);
         tempHash.add(new Card(Card.Suit.CLUBS, Card.Rank.NINE));
         testIsTrue = Main.isSameRank(tempHash);
         Assert.assertFalse(testIsTrue);
-        System.out.println( testIsTrue);
     }
 
-//    @Test
-//    public void b
+    @Test
+    public void cthreeofKind (){
+        Card card = new Card(Card.Suit.SPADES, Card.Rank.SEVEN);
+        Card card1 = new Card(Card.Suit.HEARTS, Card.Rank.EIGHT);
+        Card card2 = new Card(Card.Suit.DIAMONDS, Card.Rank.EIGHT);
+        Card card3 = new Card(Card.Suit.CLUBS, Card.Rank.EIGHT);
+
+        tempHash.add(card);
+        tempHash.add(card1);
+        tempHash.add(card2);
+        tempHash.add(card3);
+
+        boolean testIsTrue = Main.isThreeofKind(tempHash);
+        Assert.assertTrue(testIsTrue);
+
+        tempHash.remove(card1);
+        tempHash.add(new Card(Card.Suit.CLUBS, Card.Rank.NINE));
+        testIsTrue = Main.isSameRank(tempHash);
+        Assert.assertFalse(testIsTrue);
+
+
+    }
 }
 
