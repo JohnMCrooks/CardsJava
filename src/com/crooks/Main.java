@@ -112,7 +112,7 @@ public class Main {
                 .sorted((x1, x2) -> Integer.compare(x1.intValue(),x2.intValue()))
                 .collect(Collectors.toCollection(ArrayList<Integer>::new));
 
-        if (sortedArray.get(0) + 1== sortedArray.get(1) && sortedArray.get(0) +2 ==sortedArray.get(2) && sortedArray.get(0) + 3 ==sortedArray.get(3)){
+        if (sortedArray.get(0) + 1 == sortedArray.get(1) && sortedArray.get(0) + 2 ==sortedArray.get(2) && sortedArray.get(0) + 3 ==sortedArray.get(3)){
             return true;
         }
         return false;
