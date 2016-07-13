@@ -104,18 +104,19 @@ public class Main {
     }
 
     public static boolean straight(HashSet<Card> hand){
-        ArrayList<Integer> ordinalarray = hand.stream()
+        ArrayList<Integer> sortedArray = hand.stream()
                 .map (card -> card.rank.ordinal())
-                .collect(Collectors.toCollection(ArrayList<Integer>::new));
-
-        ArrayList<Integer> sortedArray = ordinalarray.stream()
                 .sorted((x1, x2) -> Integer.compare(x1.intValue(),x2.intValue()))
                 .collect(Collectors.toCollection(ArrayList<Integer>::new));
 
-        if (sortedArray.get(0) + 1 == sortedArray.get(1) && sortedArray.get(0) + 2 ==sortedArray.get(2) && sortedArray.get(0) + 3 ==sortedArray.get(3)){
-            return true;
+        ArrayList<Integer> secondArray = new ArrayList<>();
+        int rank = sortedArray.get(0);
+        while (secondArray.size() < sortedArray.size()) {
+            secondArray.add(rank);
+            rank++;
         }
-        return false;
+
+        return sortedArray.equals(secondArray);
     }
 
     public static boolean straightFlush(HashSet<Card> hand){

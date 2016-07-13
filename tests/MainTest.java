@@ -124,9 +124,9 @@ public class MainTest {
     @Test
     public void fStraightFlushTest(){
         Card card = new Card(Card.Suit.HEARTS, Card.Rank.SEVEN);
-        Card card1 = new Card(Card.Suit.HEARTS, Card.Rank.SEVEN);
-        Card card2 = new Card(Card.Suit.HEARTS, Card.Rank.SEVEN);
-        Card card3 = new Card(Card.Suit.HEARTS, Card.Rank.SEVEN);
+        Card card1 = new Card(Card.Suit.HEARTS, Card.Rank.EIGHT);
+        Card card2 = new Card(Card.Suit.HEARTS, Card.Rank.NINE);
+        Card card3 = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
 
         tempHash.add(card);
         tempHash.add(card1);
