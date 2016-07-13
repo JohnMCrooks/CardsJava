@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    static HashSet<Card> createDeck(){
+    public static HashSet<Card> createDeck(){
         HashSet<Card> deck = new HashSet<Card>();
         for (Card.Suit suit : Card.Suit.values()){  //Card.Suit.values() will return a collection of all 4 suites
             for(Card.Rank rank : Card.Rank.values()){ // will return all card values
@@ -23,7 +23,7 @@ public class Main {
         return deck;
     }
 
-    static HashSet<HashSet<Card>> createHands(HashSet<Card> deck){   // all possible non-repeating hands 270725
+    public static HashSet<HashSet<Card>> createHands(HashSet<Card> deck){   // all possible non-repeating hands 270725
         HashSet<HashSet<Card>> hands = new HashSet<HashSet<Card>>();
         for (Card c1: deck){                                            //for each card in the deck
             HashSet<Card> deck2 = (HashSet<Card>) deck.clone();         //creating a clone so we can remove the first card  and loop over it so that the original deck isn't mutated
@@ -48,21 +48,21 @@ public class Main {
         return hands;
     }
 
-    static boolean isFlush(HashSet<Card> hand){      //returns a true value if the hand is a flush
+    public static boolean isFlush(HashSet<Card> hand){      //returns a true value if the hand is a flush
         HashSet<Card.Suit> suits = hand.stream()
                 .map(card -> card.suit)               //lambda that takes a card and returns the suite
                 .collect(Collectors.toCollection(HashSet<Card.Suit>::new));
         return suits.size() == 1;
     }
 
-    static boolean isSameRank(HashSet<Card> hand){
+    public static boolean isSameRank(HashSet<Card> hand){
         HashSet<Card.Rank> ranks = hand.stream()
                 .map (card -> card.rank)
                 .collect(Collectors.toCollection(HashSet<Card.Rank>::new));
         return ranks.size() == 1;
     }
 
-    static boolean isThreeofKind(HashSet<Card> hand){
+    public static boolean isThreeofKind(HashSet<Card> hand){
         ArrayList<Integer> ordinalarray = hand.stream()
                 .map (card -> card.rank.ordinal())
                 .collect(Collectors.toCollection(ArrayList<Integer>::new));
@@ -81,7 +81,7 @@ public class Main {
         return false;
     }
 
-    static boolean twoPair(HashSet<Card> hand){
+    public static boolean twoPair(HashSet<Card> hand){
         ArrayList<Integer> ordinalarray = hand.stream()
                 .map (card -> card.rank.ordinal())
                 .collect(Collectors.toCollection(ArrayList<Integer>::new));
@@ -103,7 +103,7 @@ public class Main {
         return false;
     }
 
-    static boolean straight(HashSet<Card> hand){
+    public static boolean straight(HashSet<Card> hand){
         ArrayList<Integer> ordinalarray = hand.stream()
                 .map (card -> card.rank.ordinal())
                 .collect(Collectors.toCollection(ArrayList<Integer>::new));
@@ -118,7 +118,7 @@ public class Main {
         return false;
     }
 
-    static boolean straightFlush(HashSet<Card> hand){
+    public static boolean straightFlush(HashSet<Card> hand){
         if (isFlush(hand) && straight(hand)){
             return true;
         }else{
@@ -163,7 +163,7 @@ public class Main {
         System.out.println(" Total Three-of-a-Kinds: " + threeOfAKind.size());
         System.out.println(" Total Two-Pairs: " + twoPairs.size());
         System.out.println(" Total Straights: " + straight.size());
-        System.out.println(" Total Straights: " + straightFlush.size());
+        System.out.println(" Total Straight-Flushes: " + straightFlush.size());
 
     } // end main method
 } // end main Class

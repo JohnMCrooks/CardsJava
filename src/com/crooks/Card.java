@@ -4,14 +4,14 @@ package com.crooks;
  * Created by johncrooks on 7/12/16.
  */
 public class Card {
-    enum Suit{
+    public enum Suit{
         CLUBS,
         DIAMONDS,
         HEARTS,
         SPADES
     }
 
-    enum Rank{
+    public enum Rank{
         ACE,
         TWO,
         THREE,
@@ -32,6 +32,22 @@ public class Card {
 
     public Card(Suit suit, Rank rank) {
         this.suit = suit;
+        this.rank = rank;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public void setSuit(Suit suit) {
+        this.suit = suit;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
         this.rank = rank;
     }
 
